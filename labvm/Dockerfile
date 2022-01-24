@@ -80,6 +80,7 @@ RUN apt-get install -y afl-* \
     veil-evasion \
     wget \
     wifite \
+    zsh \
     zlib1g-dev
 
 # python3 pip installs
@@ -133,6 +134,12 @@ RUN cd /opt/ && \
     ./configure && \
     make && \
     make install
+
+# install rsactftool
+RUN cd /opt/ && git clone https://github.com/Ganapati/RsaCtfTool
+
+# install pcapfix 
+RUN cd /opt && wget https://f00l.de/pcapfix/pcapfix-1.1.7.tar.gz
 
 # install volatility
 RUN cd /opt/ && \
