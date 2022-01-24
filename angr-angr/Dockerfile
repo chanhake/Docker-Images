@@ -21,6 +21,7 @@ RUN apt-get install -y \
     pkg-config \
     qemu-system-mipsel \
     tmux \
+    zsh \
     wget 
 
 RUN apt-get install -y ruby
@@ -71,3 +72,4 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
     -t crunch
 
 WORKDIR /home/angr/workspace
+ENTRYPOINT ["/bin/zsh"]

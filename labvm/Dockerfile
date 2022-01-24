@@ -303,3 +303,4 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
 
 WORKDIR /root/workspace
 RUN cd /root/workspace
+ENTRYPOINT ["/bin/zsh"]

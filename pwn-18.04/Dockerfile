@@ -81,3 +81,4 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
     -t crunch
 
 WORKDIR /root/workspace
+ENTRYPOINT ["/bin/zsh"]
