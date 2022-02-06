@@ -31,6 +31,7 @@ RUN apt-get install -y afl-* \
     gcc-multilib \
     gdb \
     gdb-multiarch \
+    gdbserver \
     git \
     gnuradio \
     gqrx-sdr \
@@ -69,7 +70,9 @@ RUN apt-get install -y afl-* \
     shellter \
     silenttrinity \
     snort \
+    sox \ 
     sqlite3 \
+    sqlmap \
     swig \
     tcpdump \
     tcpxtract \
@@ -91,7 +94,11 @@ RUN python3 -m pip install --no-cache-dir \
     autopep8 \
     capstone \
     cython \
+    flare-floss \
     keystone-engine \
+    log_symbols \
+    opencv-python \
+    pandas \
     pebble \
     pefile \
     progress \
@@ -103,6 +110,8 @@ RUN python3 -m pip install --no-cache-dir \
     ropper \
     scikit-learn \
     smmap2 \
+    spinners \
+    stego-lsb \
     sudo \
     unicorn \
     urh \
