@@ -94,7 +94,6 @@ RUN python3 -m pip install --no-cache-dir \
     autopep8 \
     capstone \
     cython \
-    flare-floss \
     keystone-engine \
     log_symbols \
     opencv-python \
