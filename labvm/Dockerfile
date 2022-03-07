@@ -43,6 +43,7 @@ RUN apt-get install -y afl-* \
     libbluetooth-dev \
     libgcrypt-dev \
     libpcap-dev \
+    libseccomp-dev \
     librtlsdr-dev \
     libssl-dev \
     libtool \
@@ -54,10 +55,12 @@ RUN apt-get install -y afl-* \
     nasm \
     net-tools \
     ngrep \
+    patchelf \ 
     pkg-config \
     powershell-empire \
     python2 \
     python2-dev \
+    python3-dev \
     #python2-pip-whl \
     python3-bandit \
     python3-binwalk \
@@ -73,6 +76,7 @@ RUN apt-get install -y afl-* \
     sox \ 
     sqlite3 \
     sqlmap \
+    strace \ 
     swig \
     tcpdump \
     tcpxtract \
@@ -96,11 +100,13 @@ RUN python3 -m pip install --no-cache-dir \
     cython \
     keystone-engine \
     log_symbols \
+    nuitka \ 
     opencv-python \
     pandas \
     pebble \
     pefile \
     progress \
+    pymaat \ 
     pwntools \
     pybluez \
     qiling \

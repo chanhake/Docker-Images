@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 MAINTAINER tj <toconnor@fit.edu>
 
@@ -10,7 +10,6 @@ RUN apt-get update -y
 RUN apt-get install -y \
     g++ \
     gcc \
-    gcc-multilib \
     gdb \
     gdb-multiarch \
     gdbserver \ 
@@ -20,28 +19,27 @@ RUN apt-get install -y \
     nano \
     nasm \
     pkg-config \
-    qemu-system-mipsel \
     tmux \
     wget 
 
 RUN apt-get install -y python3-pip
-RUN python3 -m pip install --upgrade
 RUN apt-get install -y ruby
-
-RUN pip3 install --upgrade pip 
 
 # python3 pip installs
 RUN python3 -m pip install --no-cache-dir \
+    angr \
+    autopep8 \
+    capstone \
+    cython \
+    keystone-engine \
+    pefile \
     pwntools \
-    ropgadget \
-    ropper 
+    qiling \
+    unicorn \
 
-# install pwndbg
-RUN cd /opt/ && git clone https://github.com/pwndbg/pwndbg && \
-  cd pwndbg && \
-  ./setup.sh
-
-
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    dpkg-reconfigure --frontend=noninteractive locales && \
+    update-locale LANG=en_US.UTF-8
 ENV LANG en_US.UTF-8 
 
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)" -- \
