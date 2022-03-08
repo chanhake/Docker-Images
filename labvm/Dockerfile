@@ -108,7 +108,6 @@ RUN python3 -m pip install --no-cache-dir \
     progress \
     pymaat \ 
     pwntools \
-    pybluez \
     qiling \
     r2pipe \
     ropgadget \
