@@ -40,6 +40,7 @@ RUN apt-get install -y afl-* \
     kalibrate-rtl \
     kismet \
     kismet-plugins \
+    iputils-ping \
     libbluetooth-dev \
     libgcrypt-dev \
     libpcap-dev \
@@ -290,6 +291,10 @@ RUN cd /opt/ && \
     git clone --depth 1 https://github.com/niklasb/libc-database.git libc-database && \
     cd libc-database && \
     ./get ubuntu debian || echo "/libc-database/" > ~/.libcdb_path
+
+# install autorop
+RUN cd /opt && git clone https://github.com/mariuszskon/autorop && cd autorop && pip3 install .
+
 
 # copy how to heap
 RUN cd /opt/ && \
