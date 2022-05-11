@@ -107,9 +107,11 @@ RUN python3 -m pip install --no-cache-dir \
     pebble \
     pefile \
     progress \
+    pyfiglet \
     pymaat \ 
     pwntools \
     qiling \
+    randomname \
     r2pipe \
     ropgadget \
     ropper \
@@ -136,7 +138,7 @@ RUN cd /opt/ && \
     chmod +x /opt/DidierStevensSuite/oledump.py && \
     ln -sf /opt/DidierStevensSuite/oledump.py /usr/local/bin/oledump 
 
-# install osquery
+# install osquery 
 RUN cd /opt/ && \
     wget https://pkg.osquery.io/deb/osquery_4.6.0-1.linux_amd64.deb && \
     dpkg -I osquery_4.6.0-1.linux_amd64.deb
@@ -225,10 +227,10 @@ RUN cd /opt/ && \
     python2 setup.py install 
 
 # install KillerZee
-RUN cd /opt/ && \
-    git clone https://github.com/joswr1ght/killerzee && \
-    cd killerzee && \
-    python2 setup.py install 
+#RUN cd /opt/ && \
+#    git clone https://github.com/joswr1ght/killerzee && \
+#    cd killerzee && \
+#    python2 setup.py install 
 
 # install z3sec
 RUN cd /opt/ && \
@@ -287,14 +289,15 @@ RUN make
 RUN cp /usr/snow-20130616/snow /usr/local/bin/snow && chmod +x /usr/local/bin/snow
 
 # libc database
+RUN apt-get install -y binutils file wget rpm2cpio cpio zstd jq
 RUN cd /opt/ && \
     git clone --depth 1 https://github.com/niklasb/libc-database.git libc-database && \
     cd libc-database && \
-    ./get ubuntu debian || echo "/libc-database/" > ~/.libcdb_path
+    ./get all || echo "/libc-database/" > ~/.libcdb_path
 
 # install autorop
-RUN cd /opt && git clone https://github.com/mariuszskon/autorop && cd autorop && pip3 install .
-
+RUN cd /opt && git clone https://github.com/mariuszskon/autorop && \
+     cd autorop && pip3 install .
 
 # copy how to heap
 RUN cd /opt/ && \
