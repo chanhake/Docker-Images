@@ -9,39 +9,56 @@ ENV TZ=America/New_York
 RUN apt-get update -y
 RUN apt-get install -y afl-* \
     aircrack-ng \
+    apt-utils \
+    apktool \
+    atomicparsley \
     audacity \
     audispd-plugins \
     auditd \
     autoconf \
+    autotools-dev \
+    automake \
     bandit \
     binutils \
     binwalk \
     bison \
+    bsdmainutils \
     build-essential \
+    cewl \
     chaosreader \
     chkrootkit \
     cmake \
+    cpio \
     crackle \
     dnscat2 \
+    exiftool \
+    ffmpeg \
+    file \
     flawfinder \
     flex \
+    foremost \
     forensics-all \
     g++ \
     gcc \
-    gcc-multilib \
+    gcc-arm-linux-gnueabi \
+    gcc-arm-linux-gnueabihf \
     gdb \
     gdb-multiarch \
     gdbserver \
     git \
     gnuradio \
     gqrx-sdr \
+    hexedit \
     iptables \
     jadx \
+    jq \
     kalibrate-rtl \
     kismet \
     kismet-plugins \
     iputils-ping \
+    libevent-dev \
     libbluetooth-dev \
+    libedit-dev \
     libgcrypt-dev \
     libpcap-dev \
     libseccomp-dev \
@@ -49,6 +66,7 @@ RUN apt-get install -y afl-* \
     libssl-dev \
     libtool \
     libusb-1.0-0-dev \
+    locales \
     make \
     man \
     mitmproxy \
@@ -57,46 +75,64 @@ RUN apt-get install -y afl-* \
     net-tools \
     ngrep \
     patchelf \ 
+    pcapfix \
     pkg-config \
+    pngtools \
+    pngcheck \
     powershell-empire \
     python2 \
     python2-dev \
     python3-dev \
-    #python2-pip-whl \
     python3-bandit \
     python3-binwalk \
     python3-pip \
     python3-scapy \
     qemu-system-mipsel \
+    qemu-user \
+    rfcat \
     rkhunter \
+    rpm2cpio \
     ruby \
     ruby-dev \
     shellter \
     silenttrinity \
     snort \
+    sonic-visualiser \
     sox \ 
     sqlite3 \
     sqlmap \
-    strace \ 
+    steghide \
+    stegosuite \
+    stegsnow \
+    strace \
     swig \
     tcpdump \
+    tcpflow \
     tcpxtract \
     tempest-for-eliza \
     tmux \
     u-boot-tools \
     veil \
     veil-evasion \
+    xxd \
     wget \
     wifite \
+    zeek \
+    bro-aux \
     zsh \
-    zlib1g-dev
+    zlib1g-dev \
+    zstd  && \
+    rm -rf /var/lib/apt/lists/*
+
 
 # python3 pip installs
 RUN python3 -m pip install --no-cache-dir \
+    alive_progress \
     angr \
     angrop \
     apscheduler \
     autopep8 \
+    boofuzz \
     capstone \
     cython \
     keystone-engine \
@@ -107,9 +143,11 @@ RUN python3 -m pip install --no-cache-dir \
     pebble \
     pefile \
     progress \
+    pwnscripts \
     pyfiglet \
     pymaat \ 
     pwntools \
+    python-magic \
     qiling \
     randomname \
     r2pipe \
@@ -123,66 +161,7 @@ RUN python3 -m pip install --no-cache-dir \
     unicorn \
     urh \
     z3-solver \
-    xortool
-
-# run dump1090 (ads-b)
-RUN cd /opt && \
-    git clone https://github.com/antirez/dump1090.git && \
-    cd dump1090 && \
-    make && \
-    ln -sf /opt/dump1090/dump1090 /usr/local/bin/dump109
-
-# install DidierStevensSuite (ole parsing)
-RUN cd /opt/ && \
-    git clone https://github.com/DidierStevens/DidierStevensSuite && \
-    chmod +x /opt/DidierStevensSuite/oledump.py && \
-    ln -sf /opt/DidierStevensSuite/oledump.py /usr/local/bin/oledump 
-
-# install osquery 
-RUN cd /opt/ && \
-    wget https://pkg.osquery.io/deb/osquery_4.6.0-1.linux_amd64.deb && \
-    dpkg -I osquery_4.6.0-1.linux_amd64.deb
-
-# install zeek
-RUN cd /opt/ && \
-    git clone --recursive https://github.com/zeek/zeek && \
-    cd zeek && \
-    ./configure && \
-    make && \
-    make install
-
-# install rsactftool
-RUN cd /opt/ && git clone https://github.com/Ganapati/RsaCtfTool
-
-# install pcapfix 
-RUN cd /opt && wget https://f00l.de/pcapfix/pcapfix-1.1.7.tar.gz
-
-# install volatility
-RUN cd /opt/ && \
-    wget http://downloads.volatilityfoundation.org/releases/2.6/volatility_2.6_lin64_standalone.zip && \
-    unzip volatility_2.6_lin64_standalone.zip && \
-    ln -sf /opt/volatility_2.6_lin64_standalone/volatility_2.6_lin64_standalone /usr/local/bin/volatility
-
-# install gef for gdb
-# RUN wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
-
-# install pwndbg
-RUN cd /opt/ && git clone https://github.com/pwndbg/pwndbg && \
-  cd pwndbg && \
-  ./setup.sh
-
-# firmwalker
-RUN cd /opt/ && \
-    git clone https://github.com/craigz28/firmwalker.git 
-    #&& \
-    #echo alias firmwalker="/opt/firmwalker/firmwalker.sh" >> /home/kali/.zshrc 
-
-# install one_gadget
-RUN gem install one_gadget seccomp-tools && rm -rf /var/lib/gems/2.*/cache/*
-
-# install radare
-RUN wget https://github.com/radareorg/radare2/releases/download/4.4.0/radare2_4.4.0_amd64.deb && \
-    dpkg -i radare2_4.4.0_amd64.deb && rm radare2_4.4.0_amd64.deb
+    xortool 
 
 # install python2.7 pip
 RUN cd /opt/ && \
@@ -204,21 +183,60 @@ RUN pip install setuptools \
     future \
     pyserial \
     numpy \
-    importlib
+    importlib \
+    tqdm
 
-# install boofuzz
+# install ruby gems
+RUN gem install one_gadget seccomp-tools && \
+    rm -rf /var/lib/gems/2.*/cache/*
+
+## crypto installs ##
+
+# install rsactftool (ctfs - rsa problems)
+RUN cd /opt/ && git clone https://github.com/Ganapati/RsaCtfTool
+
+RUN cd /opt/ && git clone https://github.com/ius/rsatool && \
+    cd rsatool && python3 setup.py install 
+
+## forensics installs ##
+
+# install volatility (memory forensics)
 RUN cd /opt/ && \
-    git clone https://github.com/jtpereyda/boofuzz.git && \
-    cd boofuzz && \
-    python3 setup.py install
+    wget http://downloads.volatilityfoundation.org/releases/2.6/volatility_2.6_lin64_standalone.zip && \
+    unzip volatility_2.6_lin64_standalone.zip && \
+    ln -sf /opt/volatility_2.6_lin64_standalone/volatility_2.6_lin64_standalone /usr/local/bin/volatility
 
-# install killerbee
+# firmwalker (iot firmware crawler)
+RUN cd /opt/ && \
+    git clone https://github.com/craigz28/firmwalker.git 
+
+# install DidierStevensSuite (ole parsing)
+RUN cd /opt/ && \
+    git clone https://github.com/DidierStevens/DidierStevensSuite && \
+    chmod +x /opt/DidierStevensSuite/oledump.py && \
+    ln -sf /opt/DidierStevensSuite/oledump.py /usr/local/bin/oledump 
+
+# install osquery (hids)
+RUN cd /opt/ && \
+    wget https://pkg.osquery.io/deb/osquery_4.6.0-1.linux_amd64.deb && \
+    dpkg -I osquery_4.6.0-1.linux_amd64.deb
+
+## rf installs ##
+
+# install dump1090 (ads-b monitoring)
+RUN cd /opt && \
+    git clone https://github.com/antirez/dump1090.git && \
+    cd dump1090 && \
+    make && \
+    ln -sf /opt/dump1090/dump1090 /usr/local/bin/dump109
+
+# install killerbee (zigbee packet analysis)
 RUN cd /opt/ && \
     git clone https://github.com/riverloopsec/killerbee && \
     cd killerbee && \
     python2 setup.py install 
 
-# install rfcat
+# install rfcat (sdr toolkit)
 RUN cd /opt/ && \
     git clone https://github.com/atlas0fd00m/rfcat && \
     cd rfcat && \
@@ -226,48 +244,13 @@ RUN cd /opt/ && \
     mv requirements.mod requirements.txt && \
     python2 setup.py install 
 
-# install KillerZee
-#RUN cd /opt/ && \
-#    git clone https://github.com/joswr1ght/killerzee && \
-#    cd killerzee && \
-#    python2 setup.py install 
-
 # install z3sec
 RUN cd /opt/ && \
     git clone https://github.com/IoTsec/Z3sec/ && \
     cd Z3sec && \
     python2 setup.py install
 
-# install stego tools
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y apt-utils \
-                       apktool \
-                       forensics-all \
-                       foremost \
-                       exiftool \
-                       outguess \
-                       pngtools \
-                       pngcheck \
-                       stegosuite \
-                       hexedit \
-                       autotools-dev \
-                       automake \
-                       libevent-dev \
-                       bsdmainutils \
-                       ffmpeg \
-                       crunch \
-                       cewl \
-                       sonic-visualiser \
-                       xxd \
-                       tcpflow \
-                       steghide \
-                       stegsnow \
-                       bison \
-                       ffmpeg \
-                       atomicparsley && \
-    pip3 install python-magic && \
-    pip install tqdm
+## stego installs ##
 
 # install stegsolve
 RUN cd /opt && \
@@ -276,42 +259,61 @@ RUN cd /opt && \
     mkdir bin && \
     mv stegsolve.jar bin/
 
-# install jsteg
-RUN wget -O /usr/local/bin/jsteg https://github.com/lukechampine/jsteg/releases/download/v0.3.0/jsteg-linux-amd64 && chmod +x /usr/local/bin/jsteg
-RUN wget -O /usr/local/bin/slink https://github.com/lukechampine/jsteg/releases/download/v0.3.0/slink-linux-amd64 && chmod +x /usr/local/bin/slink
+# install jsteg (stego tool)
+RUN wget -O /usr/local/bin/jsteg \
+   https://github.com/lukechampine/jsteg/releases/download/v0.3.0/jsteg-linux-amd64 && \
+   chmod +x /usr/local/bin/jsteg
+RUN wget -O /usr/local/bin/slink \
+   https://github.com/lukechampine/jsteg/releases/download/v0.3.0/slink-linux-amd64 && \
+   chmod +x /usr/local/bin/slink
 
-# install snow
-RUN wget -O /usr/snow.tar.gz http://www.darkside.com.au/snow/snow-20130616.tar.gz
-WORKDIR /usr
-RUN tar -xvf snow.tar.gz
-WORKDIR /usr/snow-20130616/
-RUN make
-RUN cp /usr/snow-20130616/snow /usr/local/bin/snow && chmod +x /usr/local/bin/snow
+## pwn/re installs ##
 
-# libc database
-RUN apt-get install -y binutils file wget rpm2cpio cpio zstd jq
-RUN cd /opt/ && \
-    git clone --depth 1 https://github.com/niklasb/libc-database.git libc-database && \
-    cd libc-database && \
-    ./get all || echo "/libc-database/" > ~/.libcdb_path
+# install radare (debugger)
+RUN wget https://github.com/radareorg/radare2/releases/download/4.4.0/radare2_4.4.0_amd64.deb && \
+    dpkg -i radare2_4.4.0_amd64.deb && rm radare2_4.4.0_amd64.deb
 
-# install autorop
+# install pwndbg (gdb enhancement)
+RUN cd /opt/ && git clone https://github.com/pwndbg/pwndbg && \
+  cd pwndbg && \
+  ./setup.sh
+
+# install autorop (auto-exploit tool)
 RUN cd /opt && git clone https://github.com/mariuszskon/autorop && \
      cd autorop && pip3 install .
 
-# copy how to heap
-RUN cd /opt/ && \
-    git clone --depth 1 https://github.com/shellphish/how2heap how2heap
-
-# download auto-exploiter getsome.py
+# download getsome.py (auto-exploit tool)
 RUN cd /opt/ && \
     mkdir getsome && \
     cd getsome && \
     wget https://raw.githubusercontent.com/datajerk/ctf-write-ups/master/redpwnctf2021/getsome_beginner-generic-pwn-number-0_ret2generic-flag-reader_ret2the-unknown/getsome.py
 
-# resolves issue with gef
-RUN apt-get install -y locales
+# copy how to heap (shellphish heap examples)
+RUN cd /opt/ && \
+    git clone --depth 1 https://github.com/shellphish/how2heap how2heap
 
+# install rappel for emulateing assembly instructions
+RUN cd /opt/ && \
+    git clone https://github.com/yrp604/rappel && \
+     cd rappel && CC=clang make
+
+# install pwninit for patching bins for ctfs     
+RUN wget -O /bin/pwninit https://github.com/io12/pwninit/releases/download/3.2.0/pwninit && \
+    chmod +x /bin/pwninit 
+
+## some cross-compilation stuff
+RUN dpkg --add-architecture armhf && \
+    dpkg --add-architecture armel && \
+    dpkg --add-architecture i386 && \
+    apt-get update -y && \
+    apt-get -y install libssl-dev:armhf libssl-dev:armel libc6:i386 libncurses5:i386 libstdc++6:i386 && \
+    rm -rf /var/lib/apt/lists/*
+
+# install apt-conflicts last
+#RUN apt-get install -y gcc-multilib  && \
+#   rm -rf /var/lib/apt/lists/*
+
+# resolves issue with local environment
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales && \
     update-locale LANG=en_US.UTF-8
