@@ -41,7 +41,7 @@ Then in the other pane, start ``gdb-multiarch`` and connect to the debugging por
 $ gdb-multiarch bomb
 
 pwndbg> target remote 127.0.0.1:1234
-pwndbg> br
+pwndbg> disassemble phase1
 
 <..snipped..>
  0x400007b0 <+72>:    bl      0x40000488 <strcmp@plt>  
