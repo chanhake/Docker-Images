@@ -5,8 +5,13 @@ MAINTAINER tj <toconnor@fit.edu>
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/New_York
 
+# autoupdate dist/missing packages
+RUN apt-get clean -y && apt-get update -y && apt-get dist-upgrade -y 
+RUN apt-get update --fix-missing -y
+RUN apt-get update -y && apt-get upgrade -y 
+
 # apt-get installs
-RUN apt-get update -y
+RUN apt-get update -y 
 RUN apt-get install -y afl-* \
     aircrack-ng \
     apt-utils \
@@ -31,6 +36,7 @@ RUN apt-get install -y afl-* \
     cpio \
     crackle \
     dnscat2 \
+    elfutils \
     exiftool \
     ffmpeg \
     file \
@@ -94,9 +100,10 @@ RUN apt-get install -y afl-* \
     rpm2cpio \
     ruby \
     ruby-dev \
+    sagemath \ 
     shellter \
     silenttrinity \
-    snort \
+    #snort \
     sonic-visualiser \
     sox \ 
     sqlite3 \
@@ -121,7 +128,7 @@ RUN apt-get install -y afl-* \
     bro-aux \
     zsh \
     zlib1g-dev \
-    zstd  && \
+    zstd  --fix-missing && \
     rm -rf /var/lib/apt/lists/*
 
 
@@ -137,6 +144,7 @@ RUN python3 -m pip install --no-cache-dir \
     cython \
     keystone-engine \
     log_symbols \
+    mobsfscan \
     nuitka \ 
     opencv-python \
     pandas \
@@ -267,11 +275,27 @@ RUN wget -O /usr/local/bin/slink \
    https://github.com/lukechampine/jsteg/releases/download/v0.3.0/slink-linux-amd64 && \
    chmod +x /usr/local/bin/slink
 
-## pwn/re installs ##
+## re installs ##
+
+# install mobsf for android/ioS RE: TODO
+
+# install movobfuscator compiler
+RUN cd /opt && \
+   git clone https://github.com/xoreaxeaxeax/movfuscator && \
+   cd movfuscator && \
+   ./build.sh && \
+   ./install.sh
 
 # install radare (debugger)
 RUN wget https://github.com/radareorg/radare2/releases/download/4.4.0/radare2_4.4.0_amd64.deb && \
     dpkg -i radare2_4.4.0_amd64.deb && rm radare2_4.4.0_amd64.deb
+
+# install rappel for emulateing assembly instructions
+RUN cd /opt/ && \
+    git clone https://github.com/yrp604/rappel && \
+     cd rappel && CC=clang make
+
+## pwn installs ##
 
 # install pwndbg (gdb enhancement)
 RUN cd /opt/ && git clone https://github.com/pwndbg/pwndbg && \
@@ -292,10 +316,6 @@ RUN cd /opt/ && \
 RUN cd /opt/ && \
     git clone --depth 1 https://github.com/shellphish/how2heap how2heap
 
-# install rappel for emulateing assembly instructions
-RUN cd /opt/ && \
-    git clone https://github.com/yrp604/rappel && \
-     cd rappel && CC=clang make
 
 # install pwninit for patching bins for ctfs     
 RUN wget -O /bin/pwninit https://github.com/io12/pwninit/releases/download/3.2.0/pwninit && \
@@ -306,7 +326,7 @@ RUN dpkg --add-architecture armhf && \
     dpkg --add-architecture armel && \
     dpkg --add-architecture i386 && \
     apt-get update -y && \
-    apt-get -y install libssl-dev:armhf libssl-dev:armel libc6:i386 libncurses5:i386 libstdc++6:i386 && \
+    apt-get -y install libssl-dev:armhf libssl-dev:armel libc6:i386 libncurses5:i386 libstdc++6:i386 libc6-dev-i386 && \
     rm -rf /var/lib/apt/lists/*
 
 # install apt-conflicts last
