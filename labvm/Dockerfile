@@ -12,7 +12,7 @@ RUN apt-get update -y && apt-get upgrade -y
 
 # apt-get installs
 RUN apt-get update -y 
-RUN apt-get install -y afl-* \
+RUN apt-get install -y --ignore-missing afl-* \
     aircrack-ng \
     apt-utils \
     apktool \
