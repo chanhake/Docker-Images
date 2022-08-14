@@ -83,7 +83,6 @@ RUN apt-get install -y --ignore-missing afl-* \
     patchelf \ 
     pcapfix \
     pkg-config \
-    pngtools \
     pngcheck \
     powershell-empire \
     python2 \
@@ -156,6 +155,7 @@ RUN python3 -m pip install --no-cache-dir \
     pymaat \ 
     pwntools \
     python-magic \
+    pyradamsa \
     qiling \
     randomname \
     r2pipe \
